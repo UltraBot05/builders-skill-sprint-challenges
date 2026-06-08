@@ -2,7 +2,7 @@
 
 ## Meet AWS DevOps Agent (No-Code-Required Edition)
 
-Welcome! In this hands-on set you'll try **AWS DevOps Agent** — an AI teammate that looks at your AWS resources, finds what's wrong, and tells you how to fix it. **No CDK, no command line, no coding needed.** You upload one small file in the AWS Console, make something break on purpose, then just **ask the agent in plain English** what happened.
+Welcome! In this hands-on set you'll try **AWS DevOps Agent** — an AI teammate that looks at your AWS resources, finds what's wrong, and tells you how to fix it. **No CDK and no coding needed — console-only, with optional one-line CLI commands if you prefer the terminal.** You'll be handed a broken AWS scenario, then **ask the agent in plain English** to investigate, find the root cause, and guide you to the fix.
 
 > ⚠️ **AWS DevOps Agent is a paid service** (with a 2-month free trial — *not* free-tier). Read [COST-AND-CLEANUP.md](COST-AND-CLEANUP.md) **before you start** and delete your stacks when done.
 
@@ -13,12 +13,12 @@ Welcome! In this hands-on set you'll try **AWS DevOps Agent** — an AI teammate
 | # | Challenge | What you do | Difficulty |
 |---|-----------|-------------|-----------|
 | 1 | **Meet Your Agent** | Create the agent and chat with it | ⭐ Easy |
-| 2 | **First Investigation** | Break a tiny Lambda, ask the agent why | ⭐ Easy |
-| 3 | **Stress & Diagnose** | Max out an EC2 server, ask the agent | ⭐⭐ Medium |
-| 4 | **Bad Deploy Detective** | Break a web app, let the agent find the fix | ⭐⭐ Medium |
+| 2 | **First Investigation** | A Lambda fails every run — find out why and fix it | ⭐⭐ Medium |
+| 3 | **Stress & Diagnose** | A server is overloaded — diagnose it and recover it | ⭐⭐⭐ Hard |
+| 4 | **Bad Deploy Detective** | An app fails after a deploy — find the hidden cause | ⭐⭐⭐⭐ Expert |
 | 5 | **Build Your Own** | Invent your own break-and-investigate | 🚀 Innovate |
 
-Every challenge is **point-and-click in the AWS Console**. The hardest thing you'll type is a question to the agent.
+Every challenge is **point-and-click in the AWS Console**. You deploy a broken scenario, then investigate it with the agent — the hardest thing you'll type is a question.
 
 ---
 
@@ -28,7 +28,7 @@ Every challenge is **point-and-click in the AWS Console**. The hardest thing you
 - A web browser — that's it
 - About **20–30 minutes** per challenge
 
-No CDK. No SAM. No CLI. No GitHub setup. Just the AWS Console.
+Everything works **console-only** (point-and-click). Each challenge also gives you optional **AWS CLI** commands to create and destroy its infra if you prefer the terminal — but no CDK, SAM, or GitHub setup is ever required.
 
 ---
 
@@ -36,7 +36,7 @@ No CDK. No SAM. No CLI. No GitHub setup. Just the AWS Console.
 
 1. Read **[SETUP.md](SETUP.md)** once — it shows how to turn on the agent (5 minutes).
 2. Do the challenges in order (1 → 5). Each folder has a `README.md` with step-by-step clicks.
-3. Stuck? Each challenge has a `solution/` folder — peek only after you've tried.
+3. There are **no published solutions** — the agent is your guide. Investigate with it; facilitators hold the answer key.
 
 ---
 
@@ -55,9 +55,9 @@ May-2026/
 ```
 
 Each challenge folder has:
-- `README.md` — the steps
+- `README.md` — the scenario and the steps
 - `template.yaml` — the file you upload in the console (challenges **2–4**; challenge 1 is chat-only, challenge 5 is build-your-own)
-- `solution/` — the answer, for when you're done or stuck
+- `solution/` — a short note only (no answers — investigate with the agent)
 
 ---
 
@@ -66,9 +66,9 @@ Each challenge folder has:
 | # | Challenge | Difficulty | Points |
 |---|-----------|------------|--------|
 | 1 | Meet Your Agent | ⭐ | 10 |
-| 2 | First Investigation | ⭐ | 20 |
-| 3 | Stress & Diagnose | ⭐⭐ | 20 |
-| 4 | Bad Deploy Detective | ⭐⭐ | 30 |
+| 2 | First Investigation | ⭐⭐ | 20 |
+| 3 | Stress & Diagnose | ⭐⭐⭐ | 30 |
+| 4 | Bad Deploy Detective | ⭐⭐⭐⭐ | 40 |
 | 5 | Build Your Own | 🚀 | 🏆 Best one gets a shoutout! |
 
 ---

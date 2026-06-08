@@ -12,10 +12,17 @@ AWS DevOps Agent is **paid** (2-month free trial, not free-tier). The challenges
 
 ---
 
-## How to delete a stack (point-and-click)
+## How to delete a stack
 
-Challenges **2–4** create a **CloudFormation stack** when you upload `template.yaml`. To remove everything that challenge made:
+Challenges **2–4** create a **CloudFormation stack**. To remove everything that challenge made:
 
+**Option A — AWS CLI** (replace `challenge-2` with the stack you want gone):
+```bash
+aws cloudformation delete-stack --stack-name challenge-2 --region us-east-1
+aws cloudformation wait stack-delete-complete --stack-name challenge-2 --region us-east-1
+```
+
+**Option B — Console (point-and-click):**
 1. In the Console search bar, type **CloudFormation** and open it.
 2. Click your stack (e.g. `challenge-2`).
 3. Click **Delete** → confirm.
@@ -36,8 +43,8 @@ That's it — one delete removes the whole challenge.
 
 - [ ] No challenge stacks left in CloudFormation
 - [ ] EC2 instance from Challenge 3 is gone (search **EC2** → Instances)
-- [ ] Challenge 4's public app URL no longer loads (deleting the stack removes it)
+- [ ] Challenge 4's DynamoDB table `challenge4-data` is gone (deleting the stack removes it)
 - [ ] Agent Space deleted
 - [ ] Budget shows no surprise spend
 
-> 💰 **Challenge 3 (EC2) is the priciest** — delete that stack first. Challenge 4 leaves a **public no-login URL** until you delete its stack, so don't skip it.
+> 💰 **Challenge 3 (EC2) is the priciest** — delete that stack first. Everything else is tiny, but always delete each stack when you finish the challenge.

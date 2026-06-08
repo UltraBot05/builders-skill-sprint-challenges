@@ -1,17 +1,33 @@
-# Challenge 2: First Investigation ⭐
+# Challenge 2: First Investigation ⭐⭐ Medium
 
-## Goal
-Create a tiny Lambda function that's **broken on purpose**, run it so it fails, then ask AWS DevOps Agent **"why is this failing?"** and read its answer. Your first real investigation.
+## The Scenario
+A teammate deployed a small Lambda function called `challenge2-broken-fn`. Ever since it went live, **every single run fails**. Nobody has had time to look at it.
+
+Your job: deploy the stack, trigger the function so it fails, then use **AWS DevOps Agent** to work out *what is actually wrong* and how to fix it. The README won't tell you the cause — that's the whole point. Go find it.
 
 ## Time
 ~20 minutes. Cheap (one small Lambda).
 
 ## Before You Start
-Finish [SETUP.md](../SETUP.md). You'll upload one file — no coding, no command line.
+Finish [SETUP.md](../SETUP.md). Everything here works point-and-click; the AWS CLI steps are an optional shortcut.
+
+> 🔎 **The agent can only investigate what it can see.** Deploy this challenge into the **same AWS account and Region your Agent Space monitors** (these steps use `us-east-1`, where DevOps Agent runs). After the stack is created, give the agent a few minutes to discover the new resources.
 
 ## Steps
 
-### 1. Create the stack (upload the file)
+### 1. Create the infrastructure
+
+**Option A — AWS CLI (fastest).** From this challenge's folder, run:
+```bash
+aws cloudformation deploy \
+  --stack-name challenge-2 \
+  --template-file template.yaml \
+  --capabilities CAPABILITY_IAM \
+  --region us-east-1
+```
+Wait for `Successfully created/updated stack - challenge-2`.
+
+**Option B — Console (point-and-click).**
 1. In the Console search bar, type **CloudFormation** and open it.
 2. Click **Create stack** → choose **With new resources (standard)**.
    > ⚠️ **Pick "standard", NOT "With existing resources (import resources)".** The import option causes a `DeletionPolicy` / "Cannot execute a change set" error.
@@ -24,32 +40,47 @@ Finish [SETUP.md](../SETUP.md). You'll upload one file — no coding, no command
 6. Tick the box **"I acknowledge that AWS CloudFormation might create IAM resources"**.
 7. Click **Submit**. Wait ~1 minute for **CREATE_COMPLETE**.
 
-### 2. Make it break
+### 2. Reproduce the failure
 1. Search **Lambda** in the Console, open the function `challenge2-broken-fn`.
 2. Click the **Test** tab → **Test** button (any event name, defaults are fine).
-3. You'll see a red **error** — that's expected! Click Test **2–3 more times** so the alarm notices.
+3. Run it **3–4 times** so the failures register on the alarm `challenge2-broken-fn-errors`.
 
-### 3. Ask the agent
+### 3. Investigate with the agent
 1. Open the **DevOps Agent** web app → **Chat**.
-2. Ask:
+2. Ask it to investigate, for example:
    ```
-   The Lambda function challenge2-broken-fn is failing. What is the root cause?
+   The Lambda function challenge2-broken-fn is failing on every invocation.
+   Investigate and tell me the root cause and how to fix it.
    ```
-3. Read its answer. It should point at the **code error** (a `NameError` — the code uses `config` which was never defined).
+3. Read the agent's investigation. Figure out the root cause from what it tells you.
+
+### 4. Apply the fix (required)
+1. Use what the agent found to correct the problem in the Lambda **Code** tab.
+2. Click **Deploy**, then **Test** again — it should now succeed and the alarm should return to green.
+3. Ask the agent to confirm the function is healthy again.
 
 ## ✅ You're done when…
-The agent tells you the function is crashing because of an error in the code (an undefined `config`).
+- The agent has identified the root cause, **and**
+- You've applied a fix so the function runs successfully and the alarm clears.
 
 ## 📸 Submit
-Screenshot the agent's root-cause answer → [awsugmdu.in](https://www.awsugmdu.in/).
+Screenshot the agent's root-cause finding **and** your healthy function → [awsugmdu.in](https://www.awsugmdu.in/).
 
 ## Hints
 - No answer yet? Run the **Test** a couple more times and wait a minute — the agent needs to see the failures.
-- You can also point the agent at the alarm `challenge2-broken-fn-errors`.
-- Want to see the error yourself? Lambda → **Monitor** tab → **View CloudWatch logs**.
+- Point the agent at the alarm `challenge2-broken-fn-errors` if it needs a starting point.
+- Want to see the raw signal yourself? Lambda → **Monitor** tab → **View CloudWatch logs**.
 
-## Bonus Points
-- Fix it yourself: in the Lambda **Code** tab, change the handler to `return {"result": "ok"}`, **Deploy**, Test again — no more error. Ask the agent to confirm it's healthy now.
+## ⚠️ Destroy the infrastructure (cleanup)
 
-## ⚠️ Cleanup
-CloudFormation → select `challenge-2` → **Delete**. See [COST-AND-CLEANUP.md](../COST-AND-CLEANUP.md).
+Do this as soon as you finish.
+
+**Option A — AWS CLI:**
+```bash
+aws cloudformation delete-stack --stack-name challenge-2 --region us-east-1
+aws cloudformation wait stack-delete-complete --stack-name challenge-2 --region us-east-1
+```
+
+**Option B — Console:** CloudFormation → select `challenge-2` → **Delete** → confirm, wait for **DELETE_COMPLETE**.
+
+See [COST-AND-CLEANUP.md](../COST-AND-CLEANUP.md).

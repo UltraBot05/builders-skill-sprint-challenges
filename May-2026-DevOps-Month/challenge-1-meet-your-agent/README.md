@@ -23,7 +23,9 @@ Finish [SETUP.md](../SETUP.md) — you should have an Agent Space called `bss-ma
 > 1. Console → **CloudFormation** → **Create stack** → **With new resources (standard)** *(not "import")*.
 > 2. **Upload a template file** → upload `May-2026/challenge-2-first-investigation/template.yaml`.
 > 3. Name it `challenge-2`, acknowledge IAM, **Submit**, wait for **CREATE_COMPLETE**.
-> Then come back and ask the agent again. (Otherwise just use whatever's already in your account.)
+> Then give the agent a few minutes to discover it and ask again. (Otherwise just use whatever's already in your account.)
+>
+> Make sure the resources are in the **same account and Region your Agent Space monitors** — these challenges use `us-east-1`, where DevOps Agent runs.
 
 ## ✅ You're done when…
 The agent gives you a plain-English answer about your account (even "you have no resources" counts — it answered!).

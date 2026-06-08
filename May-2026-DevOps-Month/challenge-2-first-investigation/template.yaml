@@ -16,8 +16,8 @@ Resources:
       Code:
         ZipFile: |
           def handler(event, context):
-              # THE BREAK: this line always crashes.
-              # 'config' is never defined, so Python raises NameError every run.
+              # This function is broken on purpose. Use the DevOps Agent to
+              # find out why every invocation fails.
               return {"result": config["value"]}
 
   FunctionRole:
