@@ -8,30 +8,20 @@ Instructions:
   3. Make sure 'ollama serve' is running in another terminal
 """
 
-# TODO 1: Import Agent from strands
-# Hint: from strands import Agent
+from strands import Agent
+from strands.models.ollama import OllamaModel
 
+model = OllamaModel(host="http://localhost:11434", model_id="llama3.2:3b")
 
-# TODO 2: Import OllamaModel from strands
-# Hint: from strands.models.ollama import OllamaModel
+# Normal agent
+agent = Agent(model=model, system_prompt="You are a helpful assistant who gives fun, concise answers.", tools=[])
 
-
-# TODO 3: Create an OllamaModel instance
-# Hint: Use host="http://localhost:11434" and model_id="llama3.2:3b"
-ollama_model = None  # Replace this line
-
-
-# TODO 4: Create an Agent with the ollama_model
-# Hint: Agent(model=..., tools=[], system_prompt="...")
-# Use a fun system prompt like "You are a helpful assistant. Be brief."
-agent = None  # Replace this line
-
-
-# TODO 5: Ask the agent a question and print the response
-# Hint: response = agent("Your question here")
-# Try: "Tell me a fun fact about Python programming"
-print("🤖 Agent: ", end="")
-# Your code here
-
-
+print("🤖 Challenge 1 - First Agent (Ollama)\n")
+response = agent("Tell me a fun fact about Python programming language.")
+print("\n")
+# Bonus: pirate mode
+print("\n🏴‍☠️ Bonus — Pirate mode!\n")
+pirate_agent = Agent(model=model, system_prompt="You are a helpful pirate. Speak like one, arrr!", tools=[])
+response2 = pirate_agent("Tell me a fun fact about Python programming language.")
+print("\n")
 print("\n✅ Challenge 1 complete!")
